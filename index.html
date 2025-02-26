@@ -1,16 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <div class="bg-slate-900 size-40 rounded-lg">
+    <title>Ahorradas </title>
 
- <h1>gatito</h1>  </div>nbkmhbjv,
-    </main>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-4">Ahorradas</h1>
+
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold mb-2">Nueva Operación</h2>
+            <input id="descripcion" type="text" placeholder="Descripción"
+                class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input id="monto" type="number" placeholder="Monto"
+                class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <select id="tipo" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="ganancia">Ganancia</option>
+                <option value="gasto">Gasto</option>
+            </select>
+            <button onclick="agregarOperacion()"
+                class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold">Balance</h2>
+            <p class="text-lg">Total: <span id="balance" class="font-bold">$0</span></p>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-semibold">Operaciones</h2>
+            <ul id="lista-operaciones" class="mt-2"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            actualizarBalance();
+        });
+
+        let operaciones = [];
+
+        function agregarOperacion() {
+            const descripcion = document.getElementById("descripcion").value;
+            const monto = parseFloat(document.getElementById("monto").value);
+            const tipo = document.getElementById("tipo").value;
+
+            if (!descripcion || isNaN(monto)) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            const operacion = { descripcion, monto, tipo };
+            operaciones.push(operacion);
+            actualizarLista();
+            actualizarBalance();
+        }
+
+        function actualizarLista() {
+            const lista = document.getElementById("lista-operaciones");
+            lista.innerHTML = "";
+            operaciones.forEach((op, index) => {
+                const li = document.createElement("li");
+                li.classList = "flex justify-between bg-gray-100 p-2 rounded mt-2";
+                li.innerHTML = `
+                    <span>${op.descripcion} - <strong class="${op.tipo === 'gasto' ? 'text-red-500' : 'text-green-500'}">
+                        ${op.tipo === 'gasto' ? '-' : '+'}$${op.monto}
+                    </strong></span>
+                    <button onclick="eliminarOperacion(${index})" class="text-red-500 font-bold">X</button>
+                `;
+                lista.appendChild(li);
+            });
+        }
+
+        function actualizarBalance() {
+            let total = 0;
+            operaciones.forEach(op => {
+                total += op.tipo === "gasto" ? -op.monto : op.monto;
+            });
+
+            document.getElementById("balance").textContent = `$${total}`;
+        }
+
+        function eliminarOperacion(index) {
+            operaciones.splice(index, 1);
+            actualizarLista();
+            actualizarBalance();
+        }
+    </script>
 </body>
 </html>
