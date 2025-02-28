@@ -105,17 +105,105 @@
                 </tbody>
             </table>
         </div>
+
+    <!-- Nueva Categoría -->
+        <div class="nwcategory bg-gray-100 min-h-screen flex items-center justify-center">
+            <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Nueva Categoría</h2>
+                    <input id="name_nwcategory_input" type="text" placeholder="Nombre"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
+                </div>
+                <div class="example_category">
+                    <div class="flex space-x-20 items-center">
+                        <p class="w-full items-center">nueva categoria</p>
+                        <div class="flex">
+                            <button class="delete_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Eliminar</button>
+                            <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+    <!-- Nueva Operación -->
+        <div class="nwoperation bg-gray-100 min-h-screen flex items-center justify-center">
+            <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Nueva Operación</h2>
+                    <input id="description_nwoperation_input" type="text" placeholder="Descripción"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input id="amount_nwoperation_input" type="number" placeholder="Monto"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <select id="type_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400" value="Tipo">
+                        <option value="ganancia">Ganancia</option>
+                        <option value="gasto">Gasto</option>
+                    </select>
+                    <input type="date" id="date_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button class="cancel_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Cancelar</button>
+                    <button class="add_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
+                </div>
+            </div>
+        </div>
+
+    <!-- Editar Categoría -->
+        <div class="editcategory bg-gray-100 min-h-screen flex items-center justify-center">
+            <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Editar Catergoría</h2>
+                    <input id="description_editcategory_input" type="text" placeholder="Descripción"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input id="amount_editcategory_input" type="number" placeholder="Monto"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <select id="type_editcategory_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400" value="Tipo">
+                        <option value="ganancia">Ganancia</option>
+                        <option value="gasto">Gasto</option>
+                    </select>
+                    <input type="date" id="date_editcategory_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button class="cancel_editcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Cancelar</button>
+                    <button class="edit_editcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Editar</button>
+                </div>
+            </div>
+        </div>
+    
+    <!-- Editar Operación -->
+        <div class="editoperation bg-gray-100 min-h-screen flex items-center justify-center">
+            <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Editar Operación</h2>
+                    <input id="description_editoperation_input" type="text" placeholder="Descripción"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input id="amount_editoperation_input" type="number" placeholder="Monto"
+                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <select id="type_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400" value="Tipo">
+                        <option value="ganancia">Ganancia</option>
+                        <option value="gasto">Gasto</option>
+                    </select>
+                    <input type="date" id="date_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button class="cancel_editoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Cancelar</button>
+                    <button class="edit_editoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Editar</button>
+                </div>
+            </div>
     </main>
 
+
+
+
+
     <!-- Script para Sidebar -->
-    <script>
+    <!-- <script>
         const menuBtn = document.getElementById('menu-btn');
         const sidebar = document.getElementById('sidebar');
 
         menuBtn.addEventListener('click', () => {
             sidebar.classList.toggle('-translate-x-full');
         });
-    </script>
+    </script> -->
 
 </body>
 </html>
