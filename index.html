@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahorradas - Control de Gastos</title>
+    <script src="./javaScript.js"></script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -31,83 +32,88 @@
     <aside id="sidebar" class="bg-violeta text-white w-64 h-screen fixed top-0 left-0 p-6 transform -translate-x-full transition-transform md:translate-x-0">
         <h1 class="text-2xl font-bold mb-6">💰 Ahorradas</h1>
         <nav class="space-y-4">
-            <a href="#" class="block py-2 px-4 rounded hover:bg-limon text-black">📊 Balance</a>
-            <a href="#" class="block py-2 px-4 rounded hover:bg-limon text-black">📁 Categorías</a>
-            <a href="#" class="block py-2 px-4 rounded hover:bg-limon text-black">⚙ Configuración</a>
+            <button id="balance_section_button" class="block py-2 px-4 rounded hover:bg-limon text-black">📊 Balance</button>
+            <button id="categories_section_button" class="block py-2 px-4 rounded hover:bg-limon text-black">📁 Categorías</button>
+            <button id="reports_section_button" class="block py-2 px-4 rounded hover:bg-limon text-black">⚙ Reportes</button>
         </nav>
     </aside>
 
     <!-- Contenido Principal -->
     <main class="p-6 md:ml-64">
-        <!-- Sección de Balance -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-4">
-            <h2 class="text-2xl font-bold text-violeta mb-2">Balance</h2>
-            <div class="flex flex-col md:flex-row md:justify-between">
-                <p>Ganancias: <span class="text-limon font-bold">+$5000</span></p>
-                <p>Gastos: <span class="text-red-500 font-bold">-$2000</span></p>
-                <p>Total: <span class="font-bold">$3000</span></p>
+        <div class="balance_tab" id="balance_tab">
+            <!-- Sección de Balance -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                <h2 class="text-2xl font-bold text-violeta mb-2">Balance</h2>
+                <div class="flex flex-col md:flex-row md:justify-between">
+                    <p>Ganancias: <span class="text-limon font-bold">+$5000</span></p>
+                    <p>Gastos: <span class="text-red-500 font-bold">-$2000</span></p>
+                    <p>Total: <span class="font-bold">$3000</span></p>
+                </div>
             </div>
-        </div>
 
-        <!-- Filtros -->
-        <div class="bg-white p-6 rounded-lg shadow-md mb-4">
-            <h2 class="text-xl font-semibold mb-3 text-violeta">Filtros</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <input type="text" placeholder="Buscar" class="p-2 border rounded focus:ring-2 focus:ring-limon">
-                <select class="p-2 border rounded focus:ring-2 focus:ring-limon">
-                    <option value="">Todas las categorías</option>
-                    <option value="comida">Comida</option>
-                    <option value="transporte">Transporte</option>
-                </select>
-                <select class="p-2 border rounded focus:ring-2 focus:ring-limon">
-                    <option value="">Tipo</option>
-                    <option value="ganancia">Ganancia</option>
-                    <option value="gasto">Gasto</option>
-                </select>
-                <button class="bg-limon text-black p-2 rounded hover:bg-green-400">Aplicar</button>
+            <!-- Filtros -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                <h2 class="text-xl font-semibold mb-3 text-violeta">Filtros</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <input type="text" placeholder="Buscar" class="p-2 border rounded focus:ring-2 focus:ring-limon">
+                    <select class="p-2 border rounded focus:ring-2 focus:ring-limon">
+                        <option value="">Todas las categorías</option>
+                        <option value="comida">Comida</option>
+                        <option value="transporte">Transporte</option>
+                    </select>
+                    <select class="p-2 border rounded focus:ring-2 focus:ring-limon">
+                        <option value="">Tipo</option>
+                        <option value="ganancia">Ganancia</option>
+                        <option value="gasto">Gasto</option>
+                    </select>
+                    <button class="bg-limon text-black p-2 rounded hover:bg-green-400">Aplicar</button>
+                </div>
             </div>
-        </div>
 
-        <!-- Tabla de Operaciones -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-3 text-violeta">Operaciones</h2>
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="p-2 text-left">Descripción</th>
-                        <th class="p-2 text-left">Categoría</th>
-                        <th class="p-2 text-left">Monto</th>
-                        <th class="p-2 text-left">Fecha</th>
-                        <th class="p-2 text-left">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b">
-                        <td class="p-2">Cena en restaurante</td>
-                        <td class="p-2">Comida</td>
-                        <td class="p-2 text-red-500">-$50</td>
-                        <td class="p-2">2024-02-25</td>
-                        <td class="p-2">
-                            <button class="text-violeta mr-2">Editar</button>
-                            <button class="text-red-500">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr class="border-b">
-                        <td class="p-2">Salario</td>
-                        <td class="p-2">Trabajo</td>
-                        <td class="p-2 text-limon">+$3000</td>
-                        <td class="p-2">2024-02-20</td>
-                        <td class="p-2">
-                            <button class="text-violeta mr-2">Editar</button>
-                            <button class="text-red-500">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Tabla de Operaciones -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold mb-3 text-violeta">Operaciones</h2>
+                    <button class="newOperationButton bg-limon text-black p-2 rounded hover:bg-green-400" id="newOperationButton">Nueva Operación</button>
+                </div>
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-2 text-left">Descripción</th>
+                            <th class="p-2 text-left">Categoría</th>
+                            <th class="p-2 text-left">Monto</th>
+                            <th class="p-2 text-left">Fecha</th>
+                            <th class="p-2 text-left">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-2">Cena en restaurante</td>
+                            <td class="p-2">Comida</td>
+                            <td class="p-2 text-red-500">-$50</td>
+                            <td class="p-2">2024-02-25</td>
+                            <td class="p-2">
+                                <button class="text-violeta mr-2">Editar</button>
+                                <button class="text-red-500">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-2">Salario</td>
+                            <td class="p-2">Trabajo</td>
+                            <td class="p-2 text-limon">+$3000</td>
+                            <td class="p-2">2024-02-20</td>
+                            <td class="p-2">
+                                <button class="text-violeta mr-2">Editar</button>
+                                <button class="text-red-500">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     <!-- Nueva Categoría -->
-        <div class="nwcategory bg-gray-100 min-h-screen flex items-center justify-center">
+        <div class="nwcategory_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="nwcategory_tab">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         
                 <div class="mb-4">
@@ -120,8 +126,8 @@
                     <div class="flex space-x-20 items-center">
                         <p class="w-full items-center">nueva categoria</p>
                         <div class="flex">
-                            <button class="delete_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mx-1">Eliminar</button>
-                            <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
+                            <button class="delete_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mx-1" id="delete_nwcategory_button">Eliminar</button>
+                            <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="add_nwcategory_button">Agregar</button>
                         </div>
                     </div> 
                 </div>
@@ -129,7 +135,7 @@
         </div>
 
     <!-- Nueva Operación -->
-        <div class="nwoperation bg-gray-100 min-h-screen flex items-center justify-center">
+        <div class="nwoperation_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="nwoperation_tab">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         
                 <div class="mb-4">
@@ -143,14 +149,14 @@
                         <option value="gasto">Gasto</option>
                     </select>
                     <input type="date" id="date_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <button class="cancel_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Cancelar</button>
-                    <button class="add_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
+                    <button class="cancel_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="cancel_nwoperation_button">Cancelar</button>
+                    <button class="add_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="add_nwoperation_button">Agregar</button>
                 </div>
             </div>
         </div>
 
     <!-- Editar Categoría -->
-        <div class="editcategory bg-gray-100 min-h-screen flex items-center justify-center">
+        <div class="editcategory_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="editcategory_tab">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         
                 <div class="mb-4">
@@ -163,15 +169,15 @@
                         <option value="ganancia">Ganancia</option>
                         <option value="gasto">Gasto</option>
                     </select>
-                    <input type="date" id="date_editcategory_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <button class="cancel_editcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Cancelar</button>
-                    <button class="edit_editcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Editar</button>
+                    <input type="date" id="date_editcategory_button" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button class="cancel_editcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="cancel_editcategory_button">Cancelar</button>
+                    <button class="edit_editcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="edit_editcategory_button">Editar</button>
                 </div>
             </div>
         </div>
     
     <!-- Editar Operación -->
-        <div class="editoperation bg-gray-100 min-h-screen flex items-center justify-center">
+        <div class="editoperation_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="editoperation_tab">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         
                 <div class="mb-4">
@@ -185,10 +191,21 @@
                         <option value="gasto">Gasto</option>
                     </select>
                     <input type="date" id="date_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <button class="cancel_editoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Cancelar</button>
-                    <button class="edit_editoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Editar</button>
+                    <button class="cancel_editoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="cancel_editoperation_button">Cancelar</button>
+                    <button class="edit_editoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" edit_editoperation_button>Editar</button>
                 </div>
             </div>
+        </div>    
+    <!-- Reports -->
+        <div class="reports_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="reports_tab">
+            <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold mb-2">Reports</h2>
+
+                </div>
+            </div>
+        </div>
     </main>
 
 
