@@ -41,6 +41,11 @@ const defaultCategories = [
     }
 ]
 //FUNCTIONS
+    //// ALL ARRAYS FUNCTION
+        const allCategories = getData("categories") || defaultCategories
+
+        const allOperations = getData("operations") || []
+
     // TAB CHANGE SELECTORS FUNCTION (hide and show tabs)
         const hideTab = (selectors) => {
             for (const selector of selectors){
@@ -78,6 +83,34 @@ const defaultCategories = [
             hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
             showTab([".reports_tab"])
         }
+    //RENDER CATEGORIES
+    const saveNewCategory = () => {
+        return{
+            id: randomID(),
+            name: $("#nameCategory").value
+        }
+    }
+
+    const saveEditedCategory = () => {
+        return{
+            id: randomID(),
+            name: $("#editCategoryTittle").value
+        }
+    }
+
+    const renderCategories = (categories) => {
+        // clearTable("#example_category_render")
+        for (const category of categories) {
+            $("#example_category_render").innerHTML += 
+            `<tr class="border-b ">
+                <td class="p-2">${category.name}</td>
+                <td class="flex">
+                    <button class="delete_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mx-1" id="delete_nwcategory_button">Eliminar</button>
+                    <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="edit_nwcategory_button">Editar</button>
+                </td>
+            </tr>`
+        }
+    }
 
 
 
@@ -92,10 +125,15 @@ const defaultCategories = [
     // hideTab([".ejemploSelector"]) // aca queda la class hidden
     // hideTab([".ejemploSelector"], true) // aca queda la class lg:hidden
     // ``` 
+
+
+
     
 
 //EVENTS (app excecution event with individual events inside)
 const initializeApp = () => {
+        //RENDER CATEGORIES
+            renderCategories(defaultCategories)
         // TAB CHANGE EVENT
             $("#balance_section_button").addEventListener ("click", tabChangeToBalance)
             $("#categories_section_button").addEventListener ("click",tabChangeToCategories)
