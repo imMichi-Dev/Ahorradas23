@@ -93,29 +93,12 @@
                             <th class="p-2 text-left">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- <tr class="border-b">
-                            <td class="p-2">Cena en restaurante</td>
-                            <td class="p-2">Comida</td>
-                            <td class="p-2 text-red-500">-$50</td>
-                            <td class="p-2">2024-02-25</td>
-                            <td class="p-2">
-                                <button class="text-violeta mr-2">Editar</button>
-                                <button class="text-red-500">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="p-2">Salario</td>
-                            <td class="p-2">Trabajo</td>
-                            <td class="p-2 text-limon">+$3000</td>
-                            <td class="p-2">2024-02-20</td>
-                            <td class="p-2">
-                                <button class="text-violeta mr-2">Editar</button>
-                                <button class="text-red-500">Eliminar</button>
-                            </td>
-                        </tr> -->
+                    <tbody class="nwoperation_render hidden" id="nwoperation_render">
                     </tbody>
                 </table>
+                <div class="no_operations" id="no_operations">
+
+                </div>
             </div>
         </div>
 
@@ -129,8 +112,8 @@
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Agregar</button>
                 </div>
-                <table class="example_category">
-                    <tbody class="example_category_render" id="example_category_render">
+                <table>
+                    <tbody class="nwcategory_render" id="nwcategory_render">
                     </tbody>
                 </table>
             </div>
@@ -150,6 +133,8 @@
                         <option value="ganancia">Ganancia</option>
                         <option value="gasto">Gasto</option>
                     </select>
+                    <select id="category_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400" value="Category">
+                    </select>
                     <input type="date" id="date_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <button class="cancel_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="cancel_nwoperation_button">Cancelar</button>
                     <button class="add_nwoperation_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="add_nwoperation_button">Agregar</button>
@@ -163,7 +148,7 @@
         
                 <div class="mb-4">
                     <h2 class="text-xl font-semibold mb-2">Editar Catergoría</h2>
-                    <input id="description_editcategory_input" type="text" placeholder="Descripción"
+                    <input id="name_editcategory_input" type="text" placeholder="Descripción"
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <input id="amount_editcategory_input" type="number" placeholder="Monto"
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
