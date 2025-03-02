@@ -1,52 +1,257 @@
-document.addEventListener("DOMContentLoaded", () => {
-    actualizarBalance();
-});
+// UTILITIES AND RE-USED FUNCTIONS AS SELECTORS IN THE DOM.
+const $ =  (selector) => document.querySelector(selector);
 
-let operaciones = [];
+const $$ = (selector) => document.querySelectorAll(selector);
 
-function agregarOperacion() {
-    const descripcion = document.getElementById("descripcion").value;
-    const monto = parseFloat(document.getElementById("monto").value);
-    const tipo = document.getElementById("tipo").value;
+// ID ASIGNATION FUNCTION
+const randomID = () => self.crypto.randomUUID()
 
-    if (!descripcion || isNaN(monto)) {
-        alert("Por favor, completa todos los campos.");
-        return;
+// LOCAL STORAGE FUNCTIONS
+const getData = (key) => JSON.parse(localStorage.getItem(key))
+
+const setData = (key, data) => localStorage.setItem(key, JSON.stringify(data))
+
+const clearTable = (selector) => $(selector).innerHTML = '';
+
+//DEFAULT CATEGORIES SHOWN ON THE EXAMPLE APP
+const defaultCategories = [
+    {
+        id: randomID(),
+        name: "comida",
+    },
+    {
+        id: randomID(),
+        name: "servicios"
+    },
+    {
+        id: randomID(),
+        name: "salidas"
+    },
+    {
+        id: randomID(),
+        name: "educacion"
+    },
+    {
+        id: randomID(),
+        name: "transporte"
+    },
+    {
+        id: randomID(),
+        name: "trabajo"
+    }
+]
+//FUNCTIONS
+    //// ALL ARRAYS FUNCTION
+        const allCategories = getData("categories") || defaultCategories
+
+        const allOperations = getData("operations") || []
+
+    // TAB CHANGE SELECTORS FUNCTION (hide and show tabs)
+        const hideTab = (selectors) => {
+            for (const selector of selectors){
+                $(selector).classList.add("hidden")
+            }
+        }
+        const showTab = (selectors) => {
+            for (const selector of selectors){
+                $(selector).classList.remove("hidden")
+            }
+        } 
+
+    //ACTUAL TAB CHANGE FUNCTIONS FOR EACH ONE OF THE TABS
+        const tabChangeToBalance = () =>{
+            hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".balance_tab"])
+        }
+        const tabChangeToCategories = () =>{
+            hideTab([".balance_tab",".editcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".nwcategory_tab"])
+        }
+        const tabChangeToNewOperation = () =>{
+            hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab"])
+            showTab([".nwoperation_tab"])
+        }
+        const tabChangeEditionOfCategory = () =>{
+            hideTab([".balance-view",".nwcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".editcategory_tab"])
+        }
+        const tabChangeEditionOfOperation = () =>{
+            hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab"])
+            showTab([".nwoperation_tab"])
+        }
+        const tabChangeToReports = () =>{
+            hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
+            showTab([".reports_tab"])
+        }
+    //RENDER CATEGORIES FUNCTIONS
+    const saveNewCategory = () => {
+        return{
+            id: randomID(),
+            name: $("#name_nwcategory_input").value
+        }
     }
 
-    const operacion = { descripcion, monto, tipo };
-    operaciones.push(operacion);
-    actualizarLista();
-    actualizarBalance();
-}
+    const saveEditedCategory = () => {
+        return{
+            id: randomID(),
+            name: $("#name_editcategory_input").value
+        }
+    }
 
-function actualizarLista() {
-    const lista = document.getElementById("lista-operaciones");
-    lista.innerHTML = "";
-    operaciones.forEach((op, index) => {
-        const li = document.createElement("li");
-        li.classList = "flex justify-between bg-gray-100 p-2 rounded mt-2";
-        li.innerHTML = `
-            <span>${op.descripcion} - <strong class="${op.tipo === 'gasto' ? 'text-red-500' : 'text-green-500'}">
-                ${op.tipo === 'gasto' ? '-' : '+'}$${op.monto}
-            </strong></span>
-            <button onclick="eliminarOperacion(${index})" class="text-red-500">X</button>
-        `;
-        lista.appendChild(li);
-    });
-}
+    const renderCategories = (categories) => {
+        clearTable("#nwcategory_render")
+        for (const category of categories) {
+            $("#nwcategory_render").innerHTML += 
+            `<tr class="border-b ">
+                <td class="p-2">${category.name}</td>
+                <td class="flex">
+                    <button class="delete_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mx-1" id="delete_nwcategory_button">Eliminar</button>
+                    <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="edit_nwcategory_button">Editar</button>
+                </td>
+            </tr>`
+        }
+    }
 
-function actualizarBalance() {
-    let total = 0;
-    operaciones.forEach(op => {
-        total += op.tipo === "gasto" ? -op.monto : op.monto;
-    });
+    const addCategory = (category) => {
+        setData("categories", category)
+        renderCategories(category)
+    }
+    // RENDER OPERATIONS FUNCTION
+    const saveNewOperation = (userId) => {
+        return{
+            id: userId ? userId : randomID(),
+            description: $("#description_nwoperation_input").value,
+            type: $("#type_nwoperation_input").value,
+            category: $("#category_nwoperation_input").value,
+            date: $("#date_nwoperation_input").value,
+            amount: $("#amount_nwoperation_input").valueAsNumber
+        }
+    }   
+    const renderOperations = (operations) => {
+        clearTable("#nwoperation_render")
+        if(operations.length){
+            hideTab([".no_operations"])
+            showTab([".nwoperation_render"])
+            for (const operation of operations){                  
+                $("#nwoperation_render").innerHTML += 
+                `<tr class="border-b">
+                    <td class="p-2">${operation.description}</td>
+                    <td class="p-2">${operation.category}</td>
+                    <td class="p-2 text-red-500">class="${operation.type==="earning"
+                        ? "text-green-600"
+                        : "text-red-600"}"
+                        >${operation.type==="earning"
+                        ? "+$"+operation.amount
+                        : "-$"+operation.amount}</td>
+                    <td class="p-2">${operation.date}</td>
+                    <td class="p-2">
+                        <button class="text-violeta mr-2" onclick="tabChangeEditOperation('${operation.id}')">Editar</button>
+                        <button class="text-red-500" onclick="my_modal_5.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
+                    </td>
+                </tr>`
+            }
+        } else{
+            showTab([".no_operations"])
+            hideTab([".nwoperation_render"])
+        }
+    }
+    // RENDER SELECT OPTIONS FUNCTION
+    const renderNwOperationsCategories = (categories) => {
+        for (const category of categories) {
+            $("#category_nwoperation_input").innerHTML += 
+            `<option value="${category.name}">${category.name}</option>`
+        }
+    }
 
-    document.getElementById("balance").textContent = `$${total}`;
-}
 
-function eliminarOperacion(index) {
-    operaciones.splice(index, 1);
-    actualizarLista();
-    actualizarBalance();
+
+    // A ESTO NO LE PRESTES ATENCION ES UNA ANOTACION DE LA FUNCION QUE APLICA UNA VEZ HAYAMOS TERMINADO EL RESPONSIVENESS O LA VISUALIZACION EN MOBILE QUE ESCONDE ALGUNOS MENUS Y DETALLES. 
+    // const hideTab = (selectors, isLg) => {
+    //     for (const selector of selectors){
+    //         $(selector).classList.add(`${isLg ? `lg:` : ''}hidden`)
+    //     }
+    // }
+    // hideTab([".ejemploSelector"]) // aca queda la class hidden
+    // hideTab([".ejemploSelector"], true) // aca queda la class lg:hidden
+    // ``` 
+
+
+    //FILTERS FUNCTION
+    const biggestAmount = (operations) => {
+        return operations.sort((a, b) => b.amount - a.amount)  
+    }
+    const smallestAmount = (operations) => {
+        return operations.sort((a, b) => a.amount - b.amount)
+    }
+    const alphabeticAZ = (operations) => {
+        return operations.sort((a, b) => a.description.localeCompare(b.description))
+    }
+    const alphabeticZA = (operations) => {
+        return operations.sort((a, b) => b.description.localeCompare(a.description))
+    }
+    const byDate = (operations, fromDate) => {
+        return operations.filter((operation) => new Date(operation.date) >= new Date(fromDate));
+    }
+    const lessRecentDate = (operations) => {
+        return operations.sort((a, b) => new Date(a.date) - new Date(b.date))
+    }
+    const recentDate = (operations) => {
+        return operations.sort((a, b) => new Date(b.date) - new Date(a.date))
+    }
+
+    //UPDATE DATE FUNCTION
+    const updateDate = () => {
+        const date = new Date()
+        $("#date_nwoperation_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+        $("#from_select_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+    }
+//EVENTS (app excecution event with individual events inside)
+const initializeApp = () => {
+        //RENDER CATEGORIES
+            setData("operations", allOperations)
+            renderOperations(allOperations)
+            addCategory(allCategories)
+            renderCategories(allCategories)
+            renderNwOperationsCategories(allCategories)
+            // renderBalance(allOperations)
+            updateDate()
+
+        // TAB CHANGE EVENT
+            $("#balance_section_button").addEventListener ("click", tabChangeToBalance)
+            $("#categories_section_button").addEventListener ("click",tabChangeToCategories)
+            $("#reports_section_button").addEventListener ("click",tabChangeToReports)
+
+            $("#newOperationButton").addEventListener ("click", tabChangeToNewOperation)
+            $("#add_nwoperation_button").addEventListener ("click", tabChangeToBalance)
+            $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
+
+            $("#edit_editoperation_button").addEventListener ("click", tabChangeEditionOfOperation)
+            $("#cancel_editoperation_button").addEventListener ("click", tabChangeToBalance)
+
+            $("#edit_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory)
+            //$("#delete_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory) ?????
+            $("#cancel_editcategory_button").addEventListener ("click", tabChangeToCategories)
+
+
+        //EDIT CATEGORY EVENT
+            $("#edit_editcategory_button").addEventListener ("click", (e) => {
+                e.preventDefault()
+                const categoriesId = $("#edit_editcategory_button").getAttribute("data-id-categories")
+                const currentData = getData("categories").map(category => {
+                    if (category.id === categoriesId){
+                    return saveEditedCategory(categoriesId)
+                    }
+
+                    return category
+                })
+                addCategory(currentData)
+                tabChangeToCategories()
+            }) 
+            //
+            // $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton) 
+            // $("#tab-categories-dropDowMenu").addEventListener ("click", tabChangeCategories)
+            // $("#tab-reports-dropDowMenu").addEventListener ("click", tabChangeReports)
+            // $("#tab-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
 }
+window.addEventListener("load", initializeApp)
+
