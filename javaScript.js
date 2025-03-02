@@ -54,34 +54,30 @@ const defaultCategories = [
         } 
 
     //ACTUAL TAB CHANGE FUNCTIONS FOR EACH ONE OF THE TABS
-        const tabChangeToCategories = () =>{
-            hideTab([".balance_tab",".editcategory_tab",".reports_tab",".nwoperation_tab"])
-            showTab([".nwcategory_tab"])
+        const tabChangeToBalance = () =>{
+            hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".balance_tab"])
         }
-        const tabChangeToReports = () =>{
-            hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab"])
-            showTab([".reports_tab"])
+        const tabChangeToCategories = () =>{
+            hideTab([".balance_tab",".editcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".nwcategory_tab"])
         }
         const tabChangeToNewOperation = () =>{
-            hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab"])
+            hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab"])
             showTab([".nwoperation_tab"])
         }
-        const tabChangeCancelNewOperation = () =>{
+        const tabChangeEditionOfCategory = () =>{
+            hideTab([".balance-view",".nwcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".editcategory_tab"])
+        }
+        const tabChangeEditionOfOperation = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab"])
-            showTab([".balance_tab"])
+            showTab([".nwoperation_tab"])
         }
-        const tabChangeToBalance = () =>{
-            hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab"])
-            showTab([".balance_tab"])
+        const tabChangeToReports = () =>{
+            hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
+            showTab([".reports_tab"])
         }
-        const tabChangeCancelEditionOfCategory = () =>{
-            hideTab([".balance-view",".editcategory_tab",".reports_tab",".nwoperation_tab"])
-            showTab([".nwcategory_tab"])
-        }
-
-
-
-
 
 
 
@@ -101,12 +97,23 @@ const defaultCategories = [
 //EVENTS (app excecution event with individual events inside)
 const initializeApp = () => {
         // TAB CHANGE EVENT
+            $("#balance_section_button").addEventListener ("click", tabChangeToBalance)
             $("#categories_section_button").addEventListener ("click",tabChangeToCategories)
             $("#reports_section_button").addEventListener ("click",tabChangeToReports)
-            $("#balance_section_button").addEventListener ("click", tabChangeToBalance)
+
             $("#newOperationButton").addEventListener ("click", tabChangeToNewOperation)
-            $("#cancel_nwoperation_button").addEventListener ("click", tabChangeCancelNewOperation)
-            $("#cancel_editcategory_button").addEventListener ("click", tabChangeCancelEditionOfCategory)
+            $("#add_nwoperation_button").addEventListener ("click", tabChangeToBalance)
+            $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
+
+            $("#edit_editoperation_button").addEventListener ("click", tabChangeEditionOfOperation)
+            $("#cancel_editoperation_button").addEventListener ("click", tabChangeToBalance)
+
+            $("#edit_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory)
+            //$("#delete_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory) ?????
+            $("#cancel_editcategory_button").addEventListener ("click", tabChangeToCategories)
+            $("#edit_editcategory_button").addEventListener ("click", tabChangeToCategories)
+
+            //
             // $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton) 
             // $("#tab-categories-dropDowMenu").addEventListener ("click", tabChangeCategories)
             // $("#tab-reports-dropDowMenu").addEventListener ("click", tabChangeReports)
