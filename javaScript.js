@@ -124,8 +124,8 @@ const defaultCategories = [
             `<tr class="border-b ">
                 <td class="p-2">${category.name}</td>
                 <td class="flex">
-                    <button class="delete_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mx-1" id="delete_nwcategory_button">Eliminar</button>
-                    <button class="add_nwcategory_button bg-blue-500 text-white p-2 rounded hover:bg-blue-600" id="edit_nwcategory_button">Editar</button>
+                    <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button">Eliminar</button>
+                    <button class="add_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
                 </td>
             </tr>`
         }
