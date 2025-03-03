@@ -134,6 +134,7 @@ const defaultCategories = [
     const addCategory = (category) => {
         setData("categories", category)
         renderCategories(category)
+        console.log(category)
     }
     // RENDER OPERATIONS FUNCTION
     const saveNewOperation = (userId) => {
@@ -255,7 +256,20 @@ const initializeApp = () => {
             //$("#delete_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory) ?????
             $("#cancel_editcategory_button").addEventListener ("click", tabChangeToCategories)
 
-
+        //ADD CATEGORY EVENT
+            $("#add_nwcategory_button").addEventListener ("click", (e) => {
+                e.preventDefault()
+                const currentData = getData("categories")
+                const functionSaveCategory = saveNewCategory()
+                if(functionSaveCategory.name===""){
+                    $("#name_nwcategory_input").classList.add("border-red-500", "border", "border-2")
+                }else{
+                    $("#name_nwcategory_input").classList.add("border-red-500", "border", "border-2")
+                    currentData.push(saveNewCategory())
+                    addCategory(currentData)
+                }
+                $(".newCategoryForm").reset()
+            })
         //EDIT CATEGORY EVENT
             $("#edit_editcategory_button").addEventListener ("click", (e) => {
                 e.preventDefault()
