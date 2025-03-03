@@ -137,10 +137,10 @@ const defaultCategories = [
                 `<tr class="border-b">
                     <td class="p-2">${operation.description}</td>
                     <td class="p-2">${operation.category}</td>
-                    <td class="p-2 text-red-500">class="${operation.type==="earning"
+                    <td class="p-2 ${operation.type==="earning"
                         ? "text-green-600"
-                        : "text-red-600"}"
-                        >${operation.type==="earning"
+                        : "text-red-600"}">
+                        ${operation.type==="earning"
                         ? "+$"+operation.amount
                         : "-$"+operation.amount}</td>
                     <td class="p-2">${operation.date}</td>
