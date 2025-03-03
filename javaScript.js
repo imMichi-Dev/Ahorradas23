@@ -57,8 +57,27 @@ const defaultCategories = [
                 $(selector).classList.remove("hidden")
             }
         } 
+        
 
     //ACTUAL TAB CHANGE FUNCTIONS FOR EACH ONE OF THE TABS
+        const showBurguerMenu = (selectors) => {
+            $("#sidebar").classList.remove("top-0")
+            $("#sidebar").classList.remove("left-0")
+            $("#sidebar").classList.remove("p-6")
+            $("#sidebar").classList.remove("transform")
+            $("#sidebar").classList.remove("-translate-x-full")
+            $("#sidebar").classList.remove("transition-transform")
+            $("#nav_bar").classList.add("hidden")
+        } 
+        const hideBurguerMenu = (selectors) => {
+            $("#sidebar").classList.add("top-0")
+            $("#sidebar").classList.add("left-0")
+            $("#sidebar").classList.add("p-6")
+            $("#sidebar").classList.add("transform")
+            $("#sidebar").classList.add("-translate-x-full")
+            $("#sidebar").classList.add("transition-transform")
+            $("#nav_bar").classList.remove("hidden")
+        } 
         const tabChangeToBalance = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab", ".nwoperation_tab"])
             showTab([".balance_tab"])
@@ -215,6 +234,10 @@ const initializeApp = () => {
             renderNwOperationsCategories(allCategories)
             // renderBalance(allOperations)
             updateDate()
+
+        //HIDE BURGUER MENU EVENT
+            $("#menu_btn_mobile").addEventListener ("click", showBurguerMenu)
+            $("#menu_btn_medium").addEventListener ("click", hideBurguerMenu)
 
         // TAB CHANGE EVENT
             $("#balance_section_button").addEventListener ("click", tabChangeToBalance)
