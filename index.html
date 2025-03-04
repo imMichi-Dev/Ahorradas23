@@ -110,11 +110,10 @@
     <!-- Nueva Categoría -->
         <div class="nwcategory_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="nwcategory_tab">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        
                 <div class="mb-4">
                     <h2 class="text-xl font-semibold mb-2">Nueva Categoría</h2>
-                    <input id="name_nwcategory_input" type="text" placeholder="Nombre"
-                        class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
+                    <input id="name_nwcategory_input" type="text" placeholder="Nombre" required
+                        class="name_nwcategory_input w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <button class="add_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta-600" id="add_nwcategory_button">Agregar</button>
                 </div>
                 <table>
@@ -146,8 +145,8 @@
                         </div>
                         <div class="modal-action bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <form method="dialog">
-                            <button type="button" class="modal_delete_button inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto">Eliminar</button>
-                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancelar</button>
+                            <button type="button" class="modal_delete_button inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto" onclick="modal_delete.close()">Eliminar</button>
+                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto" onclick="modal_delete.close()">Cancelar</button>
                         </form>
                         </div>
                     </div>

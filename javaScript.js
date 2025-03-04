@@ -125,7 +125,7 @@ const defaultCategories = [
                 <td class="p-2">${category.name}</td>
                 <td class="flex">
                     <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button" onclick="modal_delete.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>
-                    <button class="add_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
+                    <button class="edit_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
                 </td>
             </tr>`
         }
@@ -149,7 +149,8 @@ const defaultCategories = [
         setData("operations", currentDataModalOperations)
         renderOperations(currentDataModalOperations)
         const currentDataModalCategories = getData("categories").filter(category => category.name !== categoryId)
-        addCategory(currentDataModalCategories)
+        addCategory(currentDataModalCategories)     
+        // $("#modal_delete").close()
     }
     // RENDER OPERATIONS FUNCTION
     const saveNewOperation = (userId) => {
@@ -269,7 +270,7 @@ const initializeApp = () => {
             $("#edit_editoperation_button").addEventListener ("click", tabChangeEditionOfOperation)
             $("#cancel_editoperation_button").addEventListener ("click", tabChangeToBalance)
 
-            $("#edit_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory)
+            // $("#edit_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory)
             //$("#delete_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory) ?????
             $("#cancel_editcategory_button").addEventListener ("click", tabChangeToCategories)
 
@@ -285,7 +286,7 @@ const initializeApp = () => {
                     currentData.push(saveNewCategory())
                     addCategory(currentData)
                 }
-                $(".newCategoryForm").reset()
+                $(".name_nwcategory_input").reset()
             })
         //EDIT CATEGORY EVENT
             $("#edit_editcategory_button").addEventListener ("click", (e) => {
