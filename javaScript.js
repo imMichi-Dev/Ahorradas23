@@ -164,6 +164,8 @@ const defaultCategories = [
         }
     }   
     const renderOperations = (operations) => {
+        console.log("holi");
+        
         clearTable("#nwoperation_render")
         if(operations.length){
             hideTab([".no_operations"])
@@ -182,7 +184,7 @@ const defaultCategories = [
                     <td class="p-2">${operation.date}</td>
                     <td class="p-2">
                         <button class="text-violeta mr-2" onclick="tabChangeEditOperation('${operation.id}')">Editar</button>
-                        <button class="text-red-500" onclick="my_modal_5.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
+                        <button class="text-red-500" onclick="modal_delete.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
                     </td>
                 </tr>`
             }
@@ -264,8 +266,8 @@ const initializeApp = () => {
             $("#reports_section_button").addEventListener ("click",tabChangeToReports)
 
             $("#newOperationButton").addEventListener ("click", tabChangeToNewOperation)
-            $("#add_nwoperation_button").addEventListener ("click", tabChangeToBalance)
-            $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
+            // $("#add_nwoperation_button").addEventListener ("click", tabChangeToBalance)
+            // $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
 
             $("#edit_editoperation_button").addEventListener ("click", tabChangeEditionOfOperation)
             $("#cancel_editoperation_button").addEventListener ("click", tabChangeToBalance)
@@ -302,6 +304,16 @@ const initializeApp = () => {
                 addCategory(currentData)
                 tabChangeToCategories()
             }) 
+        //ADD OPERATION EVENT
+            $("#add_nwoperation_button").addEventListener ("click", (e) => {
+                console.log("HOLI")
+                
+                const currentData = getData("operations")
+                currentData.push(saveNewOperation())
+                setData("operations", currentData)
+                renderOperations(currentData)
+                tabChangeToBalance()
+            })
 
         
             //
