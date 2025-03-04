@@ -124,7 +124,7 @@ const defaultCategories = [
             `<tr class="border-b ">
                 <td class="p-2">${category.name}</td>
                 <td class="flex">
-                    <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button">Eliminar</button>
+                    <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button" onclick="modal_delete.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>
                     <button class="add_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
                 </td>
             </tr>`
@@ -135,6 +135,21 @@ const defaultCategories = [
         setData("categories", category)
         renderCategories(category)
         console.log(category)
+    }
+    //DELETE CATEGORY
+    const buttonDeleteCategory = (categoryId) => {
+        $(".modal_delete_button").setAttribute("data-id-modal", categoryId)
+        $(".modal_delete_button").addEventListener("click", (e) => {
+            const categoriesId = $(".modal_delete_button").getAttribute("data-id-modal")
+            modalDeleteCategory(categoriesId)  
+        })
+    }
+    const modalDeleteCategory = (categoryId) => {
+        const currentDataModalOperations = getData("operations").filter(operation => operation.category !== categoryId)
+        setData("operations", currentDataModalOperations)
+        renderOperations(currentDataModalOperations)
+        const currentDataModalCategories = getData("categories").filter(category => category.name !== categoryId)
+        addCategory(currentDataModalCategories)
     }
     // RENDER OPERATIONS FUNCTION
     const saveNewOperation = (userId) => {
@@ -182,6 +197,8 @@ const defaultCategories = [
             `<option value="${category.name}">${category.name}</option>`
         }
     }
+
+
 
 
 
@@ -284,6 +301,8 @@ const initializeApp = () => {
                 addCategory(currentData)
                 tabChangeToCategories()
             }) 
+
+        
             //
             // $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton) 
             // $("#tab-categories-dropDowMenu").addEventListener ("click", tabChangeCategories)
@@ -291,4 +310,3 @@ const initializeApp = () => {
             // $("#tab-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
 }
 window.addEventListener("load", initializeApp)
-
