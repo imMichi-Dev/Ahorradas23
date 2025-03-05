@@ -162,8 +162,6 @@ const defaultCategories = [
             }
         }   
         const renderOperations = (operations) => {
-            console.log("holi");
-            
             clearTable("#nwoperation_render")
             if(operations.length){
                 hideTab([".no_operations"])
@@ -195,8 +193,6 @@ const defaultCategories = [
 
     // RENDER SELECT OPTIONS FUNCTION
     const renderCategoriesSelect = (categories) => {
-        console.log("Holi Select");
-        
         for (const category of categories) {
             $("#category_select_filter").innerHTML += 
             `<option value="${category.name}">${category.name}</option>`
@@ -221,9 +217,7 @@ const defaultCategories = [
         }
 
     // RENDER BALANCE FUNCTION
-        const renderBalanceOperations = (operations) => {
-            console.log("holi!");
-            
+        const renderBalanceOperations = (operations) => {            
             let balanceEarnings = 0
             let balanceExpenses = 0
             clearTable("#balance_section_table")
@@ -269,6 +263,34 @@ const defaultCategories = [
             const date = new Date()
             $("#date_nwoperation_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
             $("#from_select_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+        }
+
+    // VALIDAION FUNCTION
+        const validateFormOperation = (field) => {
+            const nameOperation = $("#description_nwoperation_input").value.trim()
+            const amountOperation = $("#amount_nwoperation_input").valueAsNumber
+            const validationPassed = nameOperation!== "" && amountOperation 
+            switch (field){
+                case "nameOperation":
+                    if (nameOperation=== ""){
+                    $("#description_nwoperation_input").classList.add("border-red-500", "border", "border-2")
+                    } else {
+                    $("#description_nwoperation_input").classList.remove("border-red-500")
+                    }
+                    break
+                case "amountOperation":
+                    if (!amountOperation){
+                    $("#amount_nwoperation_input").classList.add("border-red-500", "border", "border-2")
+                    } else {
+                    $("#amount_nwoperation_input").classList.remove("border-red-500", "border", "border-2")
+                    }
+                    break 
+            }
+            if(validationPassed){
+                $("#add_nwoperation_button").removeAttribute("disabled")
+            } else {
+                $("#add_nwoperation_button").setAttribute("disabled", true)
+            }
         }
 //EVENTS (app excecution event with individual events inside)
 const initializeApp = () => {
@@ -323,8 +345,6 @@ const initializeApp = () => {
             }) 
         //ADD OPERATION EVENT
             $("#add_nwoperation_button").addEventListener ("click", (e) => {
-                console.log("HOLI")
-                
                 const currentData = getData("operations")
                 currentData.push(saveNewOperation())
                 setData("operations", currentData)
@@ -388,7 +408,12 @@ const initializeApp = () => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
             renderOperations(byDate(currentData,filterSelected))
-        })    
+        }) 
         
+       // VALITADION EVENT    
+       $("#description_nwoperation_input").addEventListener("blur", () => validateFormOperation("nameOperation"))
+       $("#amount_nwoperation_input").addEventListener("blur", () => validateFormOperation("amountOperation"))    
 }
+        
+
 window.addEventListener("load", initializeApp)

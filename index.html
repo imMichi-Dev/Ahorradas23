@@ -94,7 +94,6 @@
                     </tbody>
                 </table>
                 <div class="no_operations" id="no_operations">
-
                 </div>
             </div>
         </div>
@@ -209,30 +208,87 @@
             </div>
         </div>    
     <!-- Reports -->
-        <div class="reports_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="reports_tab">
-            <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        
-                <div class="mb-4">
-                    <h2 class="text-xl font-semibold mb-2">Reports</h2>
+        <div class="reports_tab hidden bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-3 text-violeta">Reports</h2>
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold mb-3 text-violeta">Resumen</h2>
+            </div>
+            <table class="reports_table w-full border-collapse">
+                <tbody class="nwoperation_render" id="nwoperation_render">
+                </tbody>
+            </table>
 
-                </div>
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold mb-3 text-violeta">Totales por categorías</h2>
+            </div>
+            <table class="reports_table w-full border-collapse">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Ganancias</th>
+                        <th>Gastos</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody class="nwoperation_render" id="nwoperation_render">
+                </tbody>
+            </table>
+
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold mb-3 text-violeta">Totales por mes</h2>
+            </div>
+            <table class="reports_table w-full border-collapse">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Ganancias</th>
+                        <th>Gastos</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody class="nwoperation_render" id="nwoperation_render">
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="no_operations" id="no_operations">
             </div>
         </div>
     </main>
-
-
-
-
-
-    <!-- Script para Sidebar -->
-    <!-- <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const sidebar = document.getElementById('sidebar');
-
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-    </script> -->
+<!-- 
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold mb-3 text-violeta">Operaciones</h2>
+            <button class="newOperationButton bg-limon text-black p-2 rounded hover:bg-green-400" id="newOperationButton">Nueva Operación</button>
+        </div>
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="p-2 text-left">Descripción</th>
+                    <th class="p-2 text-left">Categoría</th>
+                    <th class="p-2 text-left">Monto</th>
+                    <th class="p-2 text-left">Fecha</th>
+                    <th class="p-2 text-left">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="nwoperation_render" id="nwoperation_render">
+            </tbody>
+        </table>
+        <div class="no_operations" id="no_operations">
+        </div>
+    </div>
+</div> -->
 
 </body>
 </html>
