@@ -101,6 +101,10 @@ const defaultCategories = [
         const tabChangeToReports = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
             showTab([".reports_tab"])
+            categoryHighestEarnings()
+            renderCategoryReportSummary()
+            rendermonthlyReportSummary()
+
         }
     //RENDER CATEGORIES FUNCTIONS
         const saveNewCategory = () => {
@@ -109,14 +113,12 @@ const defaultCategories = [
                 name: $("#name_nwcategory_input").value
             }
         }
-
         const saveEditedCategory = () => {
             return{
                 id: randomID(),
                 name: $("#name_editcategory_input").value
             }
         }
-
         const renderCategories = (categories) => {
             clearTable("#nwcategory_render")
             for (const category of categories) {
@@ -130,7 +132,6 @@ const defaultCategories = [
                 </tr>`
             }
         }
-
         const addCategory = (category) => {
             setData("categories", category)
             renderCategories(category)
@@ -292,6 +293,240 @@ const defaultCategories = [
                 $("#add_nwoperation_button").setAttribute("disabled", true)
             }
         }
+
+        //-------------------------------------
+        // RENDER SUMMARY REPORTS FUNCTION
+        const categoryHighestEarnings = () => {
+            const operations = getData("operations")
+            const categories = getData("categories")
+            const earningsCategory = {}
+            const expensesCategory = {}
+            const balancedCategory = {}
+            const monthEarningCategory = {}
+            const monthExpensesCategory = {}
+            // HIGHEST EARNINGS 
+            for (const operation of operations) {
+                if (operation.type === 'earning') {
+                    if (earningsCategory[operation.category]) {
+                        earningsCategory[operation.category] += operation.amount
+                    } 
+                    else {
+                        earningsCategory[operation.category] = operation.amount
+                    }
+                }
+            }
+            let highestEarnings = 0
+            let highestEarningCategory=null
+            for (const category in earningsCategory) {
+                if (earningsCategory[category] > highestEarnings) {
+                    highestEarnings = earningsCategory[category];
+                    highestEarningCategory = category
+                } 
+            }
+            // HIGHEST EXPENSES
+            for (const operation of operations) {
+                if (operation.type === 'expense') {
+                    if (expensesCategory[operation.category]) {
+                        expensesCategory[operation.category] += operation.amount
+                    } else {
+                        expensesCategory[operation.category] = operation.amount
+                    }
+                }
+            }
+            let highestExpenses = 0
+            let highestExpensesCategory = null
+            for(const category in expensesCategory) {
+                if (expensesCategory[category] > highestExpenses) {
+                    highestExpenses = expensesCategory[category];
+                    highestExpensesCategory = category
+                }
+            }
+            // BALANCED OPERATION
+            for (const operation of operations) {
+                if (balancedCategory[operation.category]) {
+                    if (operation.type === 'earning') {
+                        balancedCategory[operation.category] += operation.amount
+                    } else {
+                        balancedCategory[operation.category] -= operation.amount
+                    }
+                } else {
+                    balancedCategory[operation.category] = (operation.type === 'earning') ? operation.amount : -operation.amount
+                }
+            }
+            let highestBalance = 0
+            let highestBalancedCategory = null
+            for (const category in balancedCategory) {
+                if (balancedCategory[category] > highestBalance) {
+                    highestBalance = balancedCategory[category]
+                    highestBalancedCategory = category
+                }
+            }
+            // MONTH HIGHEST EARNINGS 
+            const earningsMonth  = {}
+            for (const operation of operations) {
+                const monthYear = operation.date.substring(0, 7)
+                if (operation.type === 'earning') {
+                    if (earningsMonth[monthYear]) {
+                        earningsMonth[monthYear] += operation.amount
+                    } else {
+                        earningsMonth[monthYear] = operation.amount
+                    }
+                }
+            }
+            let highestEarningMonth = null;
+            let highestEarning = 0;
+            for (const month in earningsMonth) {
+                if (earningsMonth[month] > highestEarning) {
+                    highestEarning += earningsMonth[month]
+                    highestEarningMonth = month
+                }
+            }
+            // MONTH HIGHEST EXPENSES 
+            const expensesMonth  = {};
+            for (const operation of operations) {
+                const monthYear = operation.date.substring(0, 7)
+                if (operation.type === 'expense') {
+                    if (expensesMonth[monthYear]) {
+                        expensesMonth[monthYear] += operation.amount
+                    } else {
+                        expensesMonth[monthYear] = operation.amount
+                    }
+                }
+            }
+            let highestExpensesMonth = null;
+            let highestExpenses2 = 0;
+            for (const month in expensesMonth) {
+                if (expensesMonth[month] > highestExpenses2) {
+                    highestExpenses2 = expensesMonth[month]
+                    highestExpensesMonth = month
+                }
+            }
+            // RENDER SUMMARY
+            $("#sumary_report_render").innerHTML = 
+                `
+                <table class="w-full mt-2 text-xs">
+                    <tr>
+                        <td>Categoría con mayor ganancia</td>
+                        <div>
+                            <td>${highestEarningCategory}</td>
+                            <td class="text-green-600">+$${highestEarnings}</td>
+                        </div>
+                    </tr> 
+                    <tr>
+                            <td>Categoría con mayor gasto</td>
+                            <div>
+                                <td>${highestExpensesCategory}</td>
+                                <td class="text-red-600">-$${highestExpenses}</td>
+                            </div>
+                    </tr>
+                    <tr>
+                        <td>Categoría con mayor balance </td>
+                        <div>
+                            <td>${highestBalancedCategory}</td>
+                            <td>$${highestBalance}</td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td class="flex space-x-4 ">Mes con mayor ganancia</td>
+                        <div>
+                            <td>${highestEarningMonth}</td>
+                            <td class="text-green-600">$${highestEarnings}</td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>Mes con mayor gasto</td>
+                        <div>
+                            <td>${highestExpensesMonth}</td>
+                            <td class="text-red-600">$${highestExpenses2}</td>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+            <div>`
+        }
+        // RENDER BY CATEGORY
+            const categoryReportSummary = (category) => {
+                const currentDataOperations = getData("operations")
+                const valuesLocation = {
+                    earnings: 0,
+                    expenses: 0
+                } 
+            const filterOperation = currentDataOperations.filter(operation => operation.category === category)
+            for (const operation of filterOperation) {
+                if (operation.type === "earning") {
+                    valuesLocation.earnings += operation.amount
+                } else {
+                    valuesLocation.expenses -= operation.amount 
+                } 
+            }
+            return valuesLocation
+            }
+            const renderCategoryReportSummary = () => {
+                clearTable("#reports_category_table")
+                const currentDataCategories = getData("categories")
+                for (const category of currentDataCategories) {
+                    const summary = categoryReportSummary(category.name)
+                    const balance= summary.earnings - summary.expenses 
+                    if(balance!="0"){
+                    $("#reports_category_table").innerHTML += 
+                    ` 
+                    <tr >              
+                    <td >${category.name}</th>
+                    <td class="text-green-600">+$${summary.earnings}</th>
+                    <td class="text-red-600">${summary.expenses}</th>
+                    <td class="">${balance}</th>
+                    </tr>
+                    `
+                    }
+                }
+            }
+        // RENDER BY MONTH
+            const monthlyReportSummary = (operations) => {
+                const currentDataOperations = getData("operations")
+                const valuesLocation = {
+                    earnings: 0,
+                    expenses: 0
+                }  
+                for (const operation of operations){
+                    
+                    if (operation.type==="earning") {
+                        valuesLocation.earnings += operation.amount  
+                    } else {
+                        valuesLocation.expenses += operation.amount
+                    }         
+                }
+                return valuesLocation
+            }
+            const rendermonthlyReportSummary = () => {
+                const currentData = getData("operations")
+                const months = {}
+    
+                for (const operation of currentData) {
+                    const monthYear = operation.date.substring(0, 7);
+                    if (!months[monthYear]) {
+                        months[monthYear] = [];
+                    }
+                    months[monthYear].push(operation);
+                }
+                for (const [month, operations] of Object.entries(months)) {
+                    const byMonth = monthlyReportSummary(operations);
+                    const balance= byMonth.earnings - byMonth.expenses 
+                    clearTable("#reports_monthly_table")  
+                    if(balance!="0"){
+                        $("#reports_monthly_table").innerHTML += 
+                        ` 
+                        <tr>              
+                        <td >${month}</th>
+                        <td class="text-green-600">+$${byMonth.earnings}</th>
+                        <td class="text-red-600">${byMonth.expenses}</th>
+                        <td >${balance}</th>
+                        </tr>
+                        `
+                    }
+                }
+            }
+
+
 //EVENTS (app excecution event with individual events inside)
 const initializeApp = () => {
         //RENDER CATEGORIES
@@ -415,5 +650,4 @@ const initializeApp = () => {
        $("#amount_nwoperation_input").addEventListener("blur", () => validateFormOperation("amountOperation"))    
 }
         
-
 window.addEventListener("load", initializeApp)

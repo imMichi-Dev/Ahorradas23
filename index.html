@@ -59,8 +59,8 @@
                     </select>
                     <select class="type_select_filter p-2 border rounded focus:ring-2 focus:ring-limon" value="Tipo" id="type_select_filter">
                         <option value="todos">todos</option>
-                        <option value="ganancia">Ganancia</option>
-                        <option value="gasto">Gasto</option>
+                        <option value="earning">Ganancia</option>
+                        <option value="expense">Gasto</option>
                     </select>
                     <input type="date" id="from_select_input" class="p-2 border rounded focus:ring-2 focus:ring-limon" required>
                     <select name="" id="order_by_select" class="p-2 border rounded focus:ring-2 focus:ring-limon" required>
@@ -177,11 +177,11 @@
                     <input id="amount_editcategory_input" type="number" placeholder="Monto" required
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <select id="type_editcategory_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo" required>
-                        <option value="ganancia">Ganancia</option>
-                        <option value="gasto">Gasto</option>
+                        <option value="earning">Ganancia</option>
+                        <option value="expense">Gasto</option>
                     </select>
                     <input type="date" id="date_editcategory_button" required class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <button class="cancel_editcategory_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="cancel_editcategory_button">Cancelar</button>
+                    <button class="cancel_editcategory_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id=" cancel_editcategory_button">Cancelar</button>
                     <button class="edit_editcategory_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="edit_editcategory_button">Editar</button>
                 </div>
             </div>
@@ -198,8 +198,8 @@
                     <input required id="amount_editoperation_input" type="number" placeholder="Monto"
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <select required id="type_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo">
-                        <option value="ganancia">Ganancia</option>
-                        <option value="gasto">Gasto</option>
+                        <option value="earning">Ganancia</option>
+                        <option value="expense">Gasto</option>
                     </select>
                     <input required type="date" id="date_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <button class="cancel_editoperation_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="cancel_editoperation_button">Cancelar</button>
@@ -208,20 +208,20 @@
             </div>
         </div>    
     <!-- Reports -->
-        <div class="reports_tab hidden bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-3 text-violeta">Reports</h2>
+        <div class="reports_tab bg-white p-6 rounded-lg shadow-md hidden">
+            <h1 class="text-xl font-semibold mb-3 text-violeta">Reports</h1>
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-semibold mb-3 text-violeta">Resumen</h2>
             </div>
-            <table class="reports_table w-full border-collapse">
-                <tbody class="nwoperation_render" id="nwoperation_render">
+            <table class="reports_summary_table w-full border-collapse">
+                <tbody class="sumary_report_render" id="sumary_report_render">
                 </tbody>
             </table>
 
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-semibold mb-3 text-violeta">Totales por categorías</h2>
             </div>
-            <table class="reports_table w-full border-collapse">
+            <table class="w-full border-collapse">
                 <thead>
                     <tr>
                         <th>Categoria</th>
@@ -230,14 +230,14 @@
                         <th>Balance</th>
                     </tr>
                 </thead>
-                <tbody class="nwoperation_render" id="nwoperation_render">
+                <tbody class="reports_category_table" id="reports_category_table">
                 </tbody>
             </table>
 
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-semibold mb-3 text-violeta">Totales por mes</h2>
             </div>
-            <table class="reports_table w-full border-collapse">
+            <table class="w-full border-collapse">
                 <thead>
                     <tr>
                         <th>Mes</th>
@@ -246,49 +246,12 @@
                         <th>Balance</th>
                     </tr>
                 </thead>
-                <tbody class="nwoperation_render" id="nwoperation_render">
+                <tbody class="reports_monthly_table" id="reports_monthly_table">
                 </tbody>
             </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div class="no_operations" id="no_operations">
             </div>
         </div>
     </main>
-<!-- 
-    <div class="bg-white p-6 rounded-lg shadow-md">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold mb-3 text-violeta">Operaciones</h2>
-            <button class="newOperationButton bg-limon text-black p-2 rounded hover:bg-green-400" id="newOperationButton">Nueva Operación</button>
-        </div>
-        <table class="w-full border-collapse">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="p-2 text-left">Descripción</th>
-                    <th class="p-2 text-left">Categoría</th>
-                    <th class="p-2 text-left">Monto</th>
-                    <th class="p-2 text-left">Fecha</th>
-                    <th class="p-2 text-left">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="nwoperation_render" id="nwoperation_render">
-            </tbody>
-        </table>
-        <div class="no_operations" id="no_operations">
-        </div>
-    </div>
-</div> -->
-
 </body>
 </html>
