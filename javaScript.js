@@ -316,7 +316,7 @@ const defaultCategories = [
                 }
             }
             let highestEarnings = 0
-            let highestEarningCategory=null
+            let highestEarningCategory=0
             for (const category in earningsCategory) {
                 if (earningsCategory[category] > highestEarnings) {
                     highestEarnings = earningsCategory[category];
@@ -334,7 +334,7 @@ const defaultCategories = [
                 }
             }
             let highestExpenses = 0
-            let highestExpensesCategory = null
+            let highestExpensesCategory = 0
             for(const category in expensesCategory) {
                 if (expensesCategory[category] > highestExpenses) {
                     highestExpenses = expensesCategory[category];
@@ -354,7 +354,7 @@ const defaultCategories = [
                 }
             }
             let highestBalance = 0
-            let highestBalancedCategory = null
+            let highestBalancedCategory = 0
             for (const category in balancedCategory) {
                 if (balancedCategory[category] > highestBalance) {
                     highestBalance = balancedCategory[category]
@@ -373,7 +373,7 @@ const defaultCategories = [
                     }
                 }
             }
-            let highestEarningMonth = null;
+            let highestEarningMonth = 0;
             let highestEarning = 0;
             for (const month in earningsMonth) {
                 if (earningsMonth[month] > highestEarning) {
@@ -393,7 +393,7 @@ const defaultCategories = [
                     }
                 }
             }
-            let highestExpensesMonth = null;
+            let highestExpensesMonth = 0;
             let highestExpenses2 = 0;
             for (const month in expensesMonth) {
                 if (expensesMonth[month] > highestExpenses2) {
