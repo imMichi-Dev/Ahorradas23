@@ -103,157 +103,181 @@ const defaultCategories = [
             showTab([".reports_tab"])
         }
     //RENDER CATEGORIES FUNCTIONS
-    const saveNewCategory = () => {
-        return{
-            id: randomID(),
-            name: $("#name_nwcategory_input").value
+        const saveNewCategory = () => {
+            return{
+                id: randomID(),
+                name: $("#name_nwcategory_input").value
+            }
         }
-    }
 
-    const saveEditedCategory = () => {
-        return{
-            id: randomID(),
-            name: $("#name_editcategory_input").value
+        const saveEditedCategory = () => {
+            return{
+                id: randomID(),
+                name: $("#name_editcategory_input").value
+            }
         }
-    }
 
-    const renderCategories = (categories) => {
-        clearTable("#nwcategory_render")
-        for (const category of categories) {
-            $("#nwcategory_render").innerHTML += 
-            `<tr class="border-b ">
-                <td class="p-2">${category.name}</td>
-                <td class="flex">
-                    <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button" onclick="modal_delete.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>
-                    <button class="edit_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
-                </td>
-            </tr>`
-        }
-    }
-
-    const addCategory = (category) => {
-        setData("categories", category)
-        renderCategories(category)
-        console.log(category)
-    }
-    //DELETE CATEGORY
-    const buttonDeleteCategory = (categoryId) => {
-        $(".modal_delete_button").setAttribute("data-id-modal", categoryId)
-        $(".modal_delete_button").addEventListener("click", (e) => {
-            const categoriesId = $(".modal_delete_button").getAttribute("data-id-modal")
-            modalDeleteCategory(categoriesId)  
-        })
-    }
-    const modalDeleteCategory = (categoryId) => {
-        const currentDataModalOperations = getData("operations").filter(operation => operation.category !== categoryId)
-        setData("operations", currentDataModalOperations)
-        renderOperations(currentDataModalOperations)
-        const currentDataModalCategories = getData("categories").filter(category => category.name !== categoryId)
-        addCategory(currentDataModalCategories)     
-        // $("#modal_delete").close()
-    }
-    // RENDER OPERATIONS FUNCTION
-    const saveNewOperation = (userId) => {
-        return{
-            id: userId ? userId : randomID(),
-            description: $("#description_nwoperation_input").value,
-            type: $("#type_nwoperation_input").value,
-            category: $("#category_nwoperation_input").value,
-            date: $("#date_nwoperation_input").value,
-            amount: $("#amount_nwoperation_input").valueAsNumber
-        }
-    }   
-    const renderOperations = (operations) => {
-        console.log("holi");
-        
-        clearTable("#nwoperation_render")
-        if(operations.length){
-            hideTab([".no_operations"])
-            showTab([".nwoperation_render"])
-            for (const operation of operations){                  
-                $("#nwoperation_render").innerHTML += 
-                `<tr class="border-b">
-                    <td class="p-2">${operation.description}</td>
-                    <td class="p-2">${operation.category}</td>
-                    <td class="p-2 ${operation.type==="earning"
-                        ? "text-green-600"
-                        : "text-red-600"}">
-                        ${operation.type==="earning"
-                        ? "+$"+operation.amount
-                        : "-$"+operation.amount}</td>
-                    <td class="p-2">${operation.date}</td>
-                    <td class="p-2">
-                        <button class="text-violeta mr-2" onclick="tabChangeEditOperation('${operation.id}')">Editar</button>
-                        <button class="text-red-500" onclick="modal_delete.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
+        const renderCategories = (categories) => {
+            clearTable("#nwcategory_render")
+            for (const category of categories) {
+                $("#nwcategory_render").innerHTML += 
+                `<tr class="border-b ">
+                    <td class="p-2">${category.name}</td>
+                    <td class="flex">
+                        <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button" onclick="modal_delete.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>
+                        <button class="edit_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
                     </td>
                 </tr>`
             }
-        } else{
-            showTab([".no_operations"])
-            hideTab([".nwoperation_render"])
         }
-    }
+
+        const addCategory = (category) => {
+            setData("categories", category)
+            renderCategories(category)
+        }
+    //DELETE CATEGORY FUNCTION
+        const buttonDeleteCategory = (categoryId) => {
+            $(".modal_delete_button").setAttribute("data-id-modal", categoryId)
+            $(".modal_delete_button").addEventListener("click", (e) => {
+                const categoriesId = $(".modal_delete_button").getAttribute("data-id-modal")
+                modalDeleteCategory(categoriesId)  
+            })
+        }
+        const modalDeleteCategory = (categoryId) => {
+            const currentDataModalOperations = getData("operations").filter(operation => operation.category !== categoryId)
+            setData("operations", currentDataModalOperations)
+            renderOperations(currentDataModalOperations)
+            const currentDataModalCategories = getData("categories").filter(category => category.name !== categoryId)
+            addCategory(currentDataModalCategories)     
+        }
+    // RENDER OPERATIONS FUNCTION
+        const saveNewOperation = (userId) => {
+            return{
+                id: userId ? userId : randomID(),
+                description: $("#description_nwoperation_input").value,
+                type: $("#type_nwoperation_input").value,
+                category: $("#category_nwoperation_select").value,
+                date: $("#date_nwoperation_input").value,
+                amount: $("#amount_nwoperation_input").valueAsNumber
+            }
+        }   
+        const renderOperations = (operations) => {
+            console.log("holi");
+            
+            clearTable("#nwoperation_render")
+            if(operations.length){
+                hideTab([".no_operations"])
+                showTab([".nwoperation_render"])
+                for (const operation of operations){                  
+                    $("#nwoperation_render").innerHTML += 
+                    `<tr class="border-b">
+                        <td class="p-2">${operation.description}</td>
+                        <td class="p-2">${operation.category}</td>
+                        <td class="p-2 ${operation.type==="earning"
+                            ? "text-green-600"
+                            : "text-red-600"}">
+                            ${operation.type==="earning"
+                            ? "+$"+operation.amount
+                            : "-$"+operation.amount}</td>
+                        <td class="p-2">${operation.date}</td>
+                        <td class="p-2">
+                            <button class=" text-violeta mr-2" onclick="tabChangeEditionOfOperation('${operation.id}')">Editar</button>
+                            <button class="text-red-500" onclick="modal_delete.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
+                        </td>
+                    </tr>`
+                }
+            } else{
+                showTab([".no_operations"])
+                hideTab([".nwoperation_render"])
+            }
+            // $(".name_nwcategory_input").reset()
+        }
+
     // RENDER SELECT OPTIONS FUNCTION
-    const renderNwOperationsCategories = (categories) => {
+    const renderCategoriesSelect = (categories) => {
+        console.log("Holi Select");
+        
         for (const category of categories) {
-            $("#category_nwoperation_input").innerHTML += 
+            $("#category_select_filter").innerHTML += 
+            `<option value="${category.name}">${category.name}</option>`
+
+            $("#category_nwoperation_select").innerHTML += 
             `<option value="${category.name}">${category.name}</option>`
         }
     }
 
+    // DELETE OPERATION FUNCTION
+        const buttonOperationRemove = (operationId) => {
+            $(".modal_delete_button").setAttribute("data-id-modal", operationId)
+            $(".modal_delete_button").addEventListener("click", () => {
+                const operationsId = $(".modal_delete_button").getAttribute("data-id-modal")
+                modalDeleteOperation(operationsId)
+                location.reload()
+            })
+        }
+        const modalDeleteOperation = (operationId) => {
+            const currentData = getData("operations").filter(operation => operation.id != operationId)
+            setData("operations", currentData)
+        }
 
-
-
-
-    // A ESTO NO LE PRESTES ATENCION ES UNA ANOTACION DE LA FUNCION QUE APLICA UNA VEZ HAYAMOS TERMINADO EL RESPONSIVENESS O LA VISUALIZACION EN MOBILE QUE ESCONDE ALGUNOS MENUS Y DETALLES. 
-    // const hideTab = (selectors, isLg) => {
-    //     for (const selector of selectors){
-    //         $(selector).classList.add(`${isLg ? `lg:` : ''}hidden`)
-    //     }
-    // }
-    // hideTab([".ejemploSelector"]) // aca queda la class hidden
-    // hideTab([".ejemploSelector"], true) // aca queda la class lg:hidden
-    // ``` 
-
+    // RENDER BALANCE FUNCTION
+        const renderBalanceOperations = (operations) => {
+            console.log("holi!");
+            
+            let balanceEarnings = 0
+            let balanceExpenses = 0
+            clearTable("#balance_section_table")
+            for (const operation of operations) {
+                if (operation.type === 'earning') {
+                    balanceEarnings += operation.amount; 
+                } else {
+                    balanceExpenses += operation.amount;
+                }
+            }
+            const balanceTotal = balanceEarnings - balanceExpenses
+            $("#balance_section_table").innerHTML = `
+                <p>Ganancias: <span class="text-limon font-bold">+$${balanceEarnings}</span></p>
+                <p>Gastos: <span class="text-red-500 font-bold">-$${balanceExpenses}</span></p>
+                <p>Total: <span class="font-bold">$${balanceTotal}</span></p>`
+        }
 
     //FILTERS FUNCTION
-    const biggestAmount = (operations) => {
-        return operations.sort((a, b) => b.amount - a.amount)  
-    }
-    const smallestAmount = (operations) => {
-        return operations.sort((a, b) => a.amount - b.amount)
-    }
-    const alphabeticAZ = (operations) => {
-        return operations.sort((a, b) => a.description.localeCompare(b.description))
-    }
-    const alphabeticZA = (operations) => {
-        return operations.sort((a, b) => b.description.localeCompare(a.description))
-    }
-    const byDate = (operations, fromDate) => {
-        return operations.filter((operation) => new Date(operation.date) >= new Date(fromDate));
-    }
-    const lessRecentDate = (operations) => {
-        return operations.sort((a, b) => new Date(a.date) - new Date(b.date))
-    }
-    const recentDate = (operations) => {
-        return operations.sort((a, b) => new Date(b.date) - new Date(a.date))
-    }
+        const biggestAmount = (operations) => {
+            return operations.sort((a, b) => b.amount - a.amount)  
+        }
+        const smallestAmount = (operations) => {
+            return operations.sort((a, b) => a.amount - b.amount)
+        }
+        const alphabeticAZ = (operations) => {
+            return operations.sort((a, b) => a.description.localeCompare(b.description))
+        }
+        const alphabeticZA = (operations) => {
+            return operations.sort((a, b) => b.description.localeCompare(a.description))
+        }
+        const byDate = (operations, fromDate) => {
+            return operations.filter((operation) => new Date(operation.date) >= new Date(fromDate));
+        }
+        const lessRecentDate = (operations) => {
+            return operations.sort((a, b) => new Date(a.date) - new Date(b.date))
+        }
+        const recentDate = (operations) => {
+            return operations.sort((a, b) => new Date(b.date) - new Date(a.date))
+        }
 
     //UPDATE DATE FUNCTION
-    const updateDate = () => {
-        const date = new Date()
-        $("#date_nwoperation_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
-        $("#from_select_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
-    }
+        const updateDate = () => {
+            const date = new Date()
+            $("#date_nwoperation_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+            $("#from_select_input").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+        }
 //EVENTS (app excecution event with individual events inside)
 const initializeApp = () => {
         //RENDER CATEGORIES
             setData("operations", allOperations)
             renderOperations(allOperations)
             addCategory(allCategories)
-            renderCategories(allCategories)
-            renderNwOperationsCategories(allCategories)
-            // renderBalance(allOperations)
+            renderCategoriesSelect(allCategories)
+            renderBalanceOperations(allOperations)
             updateDate()
 
         //HIDE BURGUER MENU EVENT
@@ -264,16 +288,9 @@ const initializeApp = () => {
             $("#balance_section_button").addEventListener ("click", tabChangeToBalance)
             $("#categories_section_button").addEventListener ("click",tabChangeToCategories)
             $("#reports_section_button").addEventListener ("click",tabChangeToReports)
-
             $("#newOperationButton").addEventListener ("click", tabChangeToNewOperation)
-            // $("#add_nwoperation_button").addEventListener ("click", tabChangeToBalance)
-            // $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
-
-            $("#edit_editoperation_button").addEventListener ("click", tabChangeEditionOfOperation)
+            $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
             $("#cancel_editoperation_button").addEventListener ("click", tabChangeToBalance)
-
-            // $("#edit_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory)
-            //$("#delete_nwcategory_button").addEventListener ("click", tabChangeEditionOfCategory) ?????
             $("#cancel_editcategory_button").addEventListener ("click", tabChangeToCategories)
 
         //ADD CATEGORY EVENT
@@ -314,12 +331,64 @@ const initializeApp = () => {
                 renderOperations(currentData)
                 tabChangeToBalance()
             })
-
+        //EDIT OPERATION EVENT
+            $("#edit_editoperation_button").addEventListener ("click", (e) => {
+                const operationsId = $("#edit_editoperation_button").getAttribute("data-id-operations")
+                const currentData = getData("operations").map(operations => {
+                    if ( operations.id === operationsId){
+                        return saveNewOperation()
+                    }
+                    return operations
+                })
+                setData("operations", currentData)  
+            })  
         
-            //
-            // $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton) 
-            // $("#tab-categories-dropDowMenu").addEventListener ("click", tabChangeCategories)
-            // $("#tab-reports-dropDowMenu").addEventListener ("click", tabChangeReports)
-            // $("#tab-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
+        //FILTERS EVENT
+        $("#category_select_filter").addEventListener("input", (e) => {
+            const filterSelected = e.target.value
+            const currentData = getData("operations")
+            if(filterSelected==="Todas"){
+                setData("operations", currentData)
+                renderOperations(currentData)
+            }else{
+                const filterOperation = currentData.filter(operation => operation.category === filterSelected)
+                renderOperations(filterOperation)
+            }
+        })
+        $("#type_select_filter").addEventListener("input", (e) => {
+            const filterSelected = e.target.value
+            const currentData = getData("operations")
+            if(filterSelected==="todos"){
+                setData("operations", currentData)
+                renderOperations(currentData)
+            }else{
+                const currentData = getData("operations")
+                const filterOperation = currentData.filter(operation => operation.type === filterSelected)
+                renderOperations(filterOperation)
+            }
+        })
+        $("#order_by_select").addEventListener("input", (e) => {
+            const filterSelected = e.target.value
+            const currentData = getData("operations")
+            if(filterSelected==="Menos reciente"){
+                renderOperations(lessRecentDate(currentData))
+            }else if(filterSelected==="Más reciente"){
+                renderOperations(recentDate(currentData))
+            }else if (filterSelected==="Mayor monto"){
+                renderOperations(biggestAmount(currentData))
+            }else if(filterSelected==="Menor monto"){
+                renderOperations(smallestAmount(currentData))
+            }else if(filterSelected==="A/Z"){
+                renderOperations(alphabeticAZ(currentData))
+            }else if(filterSelected==="Z/A"){
+                renderOperations(alphabeticZA(currentData))
+            }
+        })
+        $("#from_select_input").addEventListener("input", (e) => {
+            const filterSelected = e.target.value
+            const currentData = getData("operations")
+            renderOperations(byDate(currentData,filterSelected))
+        })    
+        
 }
 window.addEventListener("load", initializeApp)

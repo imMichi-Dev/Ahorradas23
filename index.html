@@ -30,8 +30,6 @@
 
     <!-- Sidebar -->
     <aside id="sidebar" id="sidebar" class="bg-violeta text-white w-64 h-screen fixed top-0 left-0 p-6 transform -translate-x-full transition-transform md:translate-x-0 ">
-        <!--  -->
-        <!-- -->
         <header class="bg-violeta text-white p-4 flex justify-between items-center">
             <h1 class="text-xl font-bold">💰 Ahorradas</h1>
             <button id="menu_btn_medium" class="text-2xl md:hidden">×</button>
@@ -47,12 +45,9 @@
     <main class="p-6 md:ml-64">
         <div class="balance_tab" id="balance_tab">
             <!-- Sección de Balance -->
-            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+            <div class="balance_section bg-white p-6 rounded-lg shadow-md mb-4">
                 <h2 class="text-2xl font-bold text-violeta mb-2">Balance</h2>
-                <div class="flex flex-col md:flex-row md:justify-between">
-                    <p>Ganancias: <span class="text-limon font-bold">+$5000</span></p>
-                    <p>Gastos: <span class="text-red-500 font-bold">-$2000</span></p>
-                    <p>Total: <span class="font-bold">$3000</span></p>
+                <div class="balance_section_table flex flex-col md:flex-row md:justify-between" id="balance_section_table">
                 </div>
             </div>
 
@@ -60,18 +55,15 @@
             <div class="bg-white p-6 rounded-lg shadow-md mb-4">
                 <h2 class="text-xl font-semibold mb-3 text-violeta">Filtros</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <select class="p-2 border rounded focus:ring-2 focus:ring-limon">
-                        <option value="">Todas las categorías</option>
-                        <option value="comida">Comida</option>
-                        <option value="transporte">Transporte</option>
+                    <select class="category_select_filter p-2 border rounded focus:ring-2 focus:ring-limon" id="category_select_filter" value="Todas las categorías">
                     </select>
-                    <select class="p-2 border rounded focus:ring-2 focus:ring-limon">
-                        <option value="">Tipo</option>
+                    <select class="type_select_filter p-2 border rounded focus:ring-2 focus:ring-limon" value="Tipo" id="type_select_filter">
+                        <option value="todos">todos</option>
                         <option value="ganancia">Ganancia</option>
                         <option value="gasto">Gasto</option>
                     </select>
                     <input type="date" id="from_select_input" class="p-2 border rounded focus:ring-2 focus:ring-limon" required>
-                    <select name="" id="order-by-select" class="p-2 border rounded focus:ring-2 focus:ring-limon" required>
+                    <select name="" id="order_by_select" class="p-2 border rounded focus:ring-2 focus:ring-limon" required>
                         <option value="Más reciente">Más reciente</option>
                         <option value="Menos reciente">Menos reciente</option>
                         <option value="Mayor monto">Mayor monto</option>
@@ -156,22 +148,22 @@
     <!-- Nueva Operación -->
         <div class="nwoperation_tab hidden bg-gray-100 min-h-screen flex items-center justify-center" id="nwoperation_tab">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-                <div class="mb-4">
+                <form class="mb-4">
                     <h2 class="text-xl font-semibold mb-2">Nueva Operación</h2>
-                    <input id="description_nwoperation_input" type="text" placeholder="Descripción"
+                    <input id="description_nwoperation_input" type="text" placeholder="Descripción" required
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <input id="amount_nwoperation_input" type="number" placeholder="Monto"
+                    <input id="amount_nwoperation_input" type="number" placeholder="Monto" required
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <select id="type_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo">
-                        <option value="ganancia">Ganancia</option>
-                        <option value="gasto">Gasto</option>
+                    <select id="type_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo" required>
+                        <option value="earning">Ganancia</option>
+                        <option value="expense">Gasto</option>
                     </select>
-                    <select id="category_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Category">
+                    <select id="category_nwoperation_select" class="category_nwoperation_select w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Category" required>
                     </select>
-                    <input type="date" id="date_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
+                    <input type="date" required id="date_nwoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <button class="cancel_nwoperation_button bg-violeta text-white p-2 rounded hover:bg-violeta-600" id="cancel_nwoperation_button">Cancelar</button>
                     <button class="add_nwoperation_button bg-violeta text-white p-2 rounded hover:bg-violeta-600" id="add_nwoperation_button">Agregar</button>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -181,15 +173,15 @@
         
                 <div class="mb-4">
                     <h2 class="text-xl font-semibold mb-2">Editar Catergoría</h2>
-                    <input id="name_editcategory_input" type="text" placeholder="Descripción"
+                    <input id="name_editcategory_input" type="text" placeholder="Descripción" required
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <input id="amount_editcategory_input" type="number" placeholder="Monto"
+                    <input id="amount_editcategory_input" type="number" placeholder="Monto" required
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <select id="type_editcategory_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo">
+                    <select id="type_editcategory_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo" required>
                         <option value="ganancia">Ganancia</option>
                         <option value="gasto">Gasto</option>
                     </select>
-                    <input type="date" id="date_editcategory_button" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
+                    <input type="date" id="date_editcategory_button" required class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <button class="cancel_editcategory_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="cancel_editcategory_button">Cancelar</button>
                     <button class="edit_editcategory_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="edit_editcategory_button">Editar</button>
                 </div>
@@ -204,13 +196,13 @@
                     <h2 class="text-xl font-semibold mb-2">Editar Operación</h2>
                     <input id="description_editoperation_input" type="text" placeholder="Descripción"
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <input id="amount_editoperation_input" type="number" placeholder="Monto"
+                    <input required id="amount_editoperation_input" type="number" placeholder="Monto"
                         class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
-                    <select id="type_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo">
+                    <select required id="type_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400" value="Tipo">
                         <option value="ganancia">Ganancia</option>
                         <option value="gasto">Gasto</option>
                     </select>
-                    <input type="date" id="date_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
+                    <input required type="date" id="date_editoperation_input" class="w-full p-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-violeta-400">
                     <button class="cancel_editoperation_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="cancel_editoperation_button">Cancelar</button>
                     <button class="edit_editoperation_button bg-violeta-500 text-white p-2 rounded hover:bg-violeta-600" id="edit_editoperation_button">Editar</button>
                 </div>
