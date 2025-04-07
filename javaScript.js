@@ -96,7 +96,7 @@ const defaultCategories = [
         }
         const tabChangeEditionOfOperation = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab"])
-            showTab([".nwoperation_tab"])
+            showTab([".editoperation_tab"])
         }
         const tabChangeToReports = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
