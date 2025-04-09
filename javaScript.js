@@ -90,13 +90,9 @@ const defaultCategories = [
             hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab"])
             showTab([".nwoperation_tab"])
         }
-        const tabChangeEditionOfCategory = () =>{
-            hideTab([".balance-view",".nwcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
+        const tabChangeToEditionOfCategory = () =>{
+            hideTab([".nwcategory_tab",".nwcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
             showTab([".editcategory_tab"])
-        }
-        const tabChangeEditionOfOperation = () =>{
-            hideTab([".nwcategory_tab",".nwoperation_tab",".editcategory_tab",".reports_tab"])
-            showTab([".editoperation_tab"])
         }
         const tabChangeToReports = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
@@ -162,6 +158,16 @@ const defaultCategories = [
                 amount: $("#amount_nwoperation_input").valueAsNumber
             }
         }   
+        const saveEditOperation = (userId) => {
+            return{
+                id: userId ? userId : randomID(),
+                description: $("#description_editoperation_input").value,
+                type: $("#type_editoperation_input").value,
+                category: $("#category_editoperation_select").value,
+                date: $("#date_editoperation_input").value,
+                amount: $("#amount_editoperation_input").valueAsNumber
+            }
+        } 
         const renderOperations = (operations) => {
             clearTable("#nwoperation_render")
             if(operations.length){
@@ -180,7 +186,7 @@ const defaultCategories = [
                             : "-$"+operation.amount}</td>
                         <td class="p-2">${operation.date}</td>
                         <td class="p-2">
-                            <button class=" text-violeta mr-2" onclick="tabChangeEditionOfOperation('${operation.id}')">Editar</button>
+                            <button class="text-violeta mr-2" onclick="tabChangeToEditionOfOperation('${operation.id}')">Editar</button>
                             <button class="text-red-500" onclick="modal_delete.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
                         </td>
                     </tr>`
@@ -200,6 +206,8 @@ const defaultCategories = [
 
             $("#category_nwoperation_select").innerHTML += 
             `<option value="${category.name}">${category.name}</option>`
+
+
         }
     }
 
@@ -215,6 +223,23 @@ const defaultCategories = [
         const modalDeleteOperation = (operationId) => {
             const currentData = getData("operations").filter(operation => operation.id != operationId)
             setData("operations", currentData)
+        }
+    
+    // EDIT OPERATION FUNCTION
+        const tabChangeToEditionOfOperation = (operationsId) =>{
+            hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab", ".new_operation_title", ".add_nwoperation_button"])
+            showTab([".nwoperation_tab", ".edit_operation_title", ".edit_editoperation_button"])
+
+
+            $("#edit_editoperation_button").setAttribute("data-id-operations", operationsId)
+            const operationSelect = getData("operations").find(operations => operations.id === operationsId)
+            $("#description_nwoperation_input").value = operationSelect.description
+            $("#category_nwoperation_select").value = operationSelect.category
+            $("#type_nwoperation_input").value = operationSelect.type
+            $("#date_nwoperation_input").value = operationSelect.date
+            $("#amount_nwoperation_input").value = operationSelect.amount
+
+            
         }
 
     // RENDER BALANCE FUNCTION
@@ -547,7 +572,6 @@ const initializeApp = () => {
             $("#reports_section_button").addEventListener ("click",tabChangeToReports)
             $("#newOperationButton").addEventListener ("click", tabChangeToNewOperation)
             $("#cancel_nwoperation_button").addEventListener ("click", tabChangeToBalance)
-            $("#cancel_editoperation_button").addEventListener ("click", tabChangeToBalance)
             $("#cancel_editcategory_button").addEventListener ("click", tabChangeToCategories)
 
         //ADD CATEGORY EVENT
@@ -588,6 +612,7 @@ const initializeApp = () => {
             })
         //EDIT OPERATION EVENT
             $("#edit_editoperation_button").addEventListener ("click", (e) => {
+                console.log("Holiiiii")
                 const operationsId = $("#edit_editoperation_button").getAttribute("data-id-operations")
                 const currentData = getData("operations").map(operations => {
                     if ( operations.id === operationsId){
@@ -595,7 +620,8 @@ const initializeApp = () => {
                     }
                     return operations
                 })
-                setData("operations", currentData)  
+                setData("operations", currentData) 
+                console.log("Holiiiiiaaa")
             })  
         
         //FILTERS EVENT
