@@ -90,10 +90,6 @@ const defaultCategories = [
             hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab", ".nwoperation_tab"])
             showTab([".nwoperation_tab"])
         }
-        const tabChangeToEditionOfCategory = () =>{
-            hideTab([".nwcategory_tab",".nwcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
-            showTab([".editcategory_tab"])
-        }
         const tabChangeToReports = () =>{
             hideTab([".nwcategory_tab",".nwoperation_tab",".balance_tab",".editcategory_tab", ".nwoperation_tab"])
             showTab([".reports_tab"])
@@ -123,7 +119,7 @@ const defaultCategories = [
                     <td class="p-2">${category.name}</td>
                     <td class="flex">
                         <button class="delete_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta mx-1" id="delete_nwcategory_button" onclick="modal_delete.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>
-                        <button class="edit_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button">Editar</button>
+                        <button class="edit_nwcategory_button bg-violeta text-white p-2 rounded hover:bg-violeta" id="edit_nwcategory_button" onclick="tabChangeToEditionOfCategory('${category.id}')">Editar</button>
                     </td>
                 </tr>`
             }
@@ -147,6 +143,17 @@ const defaultCategories = [
             const currentDataModalCategories = getData("categories").filter(category => category.name !== categoryId)
             addCategory(currentDataModalCategories)     
         }
+
+    //EDIT CATEGORY FUNCTION
+        const tabChangeToEditionOfCategory = (categoryId) =>{
+            hideTab([".nwcategory_tab",".nwcategory_tab",".reports_tab",".nwoperation_tab", ".nwoperation_tab"])
+            showTab([".editcategory_tab"])
+
+            $("#edit_editcategory_button").setAttribute("data-id-categories", categoryId)
+            const categorySelect = getData("categories").find(categories => categories.id === categoryId)
+            $("#name_editcategory_input").value = categorySelect.name
+        }
+
     // RENDER OPERATIONS FUNCTION
         const saveNewOperation = (userId) => {
             return{
@@ -195,7 +202,6 @@ const defaultCategories = [
                 showTab([".no_operations"])
                 hideTab([".nwoperation_render"])
             }
-            // $(".name_nwcategory_input").reset()
         }
 
     // RENDER SELECT OPTIONS FUNCTION
@@ -206,8 +212,6 @@ const defaultCategories = [
 
             $("#category_nwoperation_select").innerHTML += 
             `<option value="${category.name}">${category.name}</option>`
-
-
         }
     }
 
@@ -230,7 +234,6 @@ const defaultCategories = [
             hideTab([".nwcategory_tab",".balance_tab",".editcategory_tab",".reports_tab", ".new_operation_title", ".add_nwoperation_button"])
             showTab([".nwoperation_tab", ".edit_operation_title", ".edit_editoperation_button"])
 
-
             $("#edit_editoperation_button").setAttribute("data-id-operations", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
             $("#description_nwoperation_input").value = operationSelect.description
@@ -238,8 +241,6 @@ const defaultCategories = [
             $("#type_nwoperation_input").value = operationSelect.type
             $("#date_nwoperation_input").value = operationSelect.date
             $("#amount_nwoperation_input").value = operationSelect.amount
-
-            
         }
 
     // RENDER BALANCE FUNCTION
