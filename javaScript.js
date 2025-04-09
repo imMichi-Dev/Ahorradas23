@@ -586,7 +586,7 @@ const initializeApp = () => {
                     currentData.push(saveNewCategory())
                     addCategory(currentData)
                 }
-                $(".name_nwcategory_input").reset()
+                $(".nwcategory_form").reset()
             })
         //EDIT CATEGORY EVENT
             $("#edit_editcategory_button").addEventListener ("click", (e) => {
