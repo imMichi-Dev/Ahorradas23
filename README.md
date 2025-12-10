@@ -1,76 +1,65 @@
-# AhorrADAs
+# AhorrADAs 💰
 Hi there! ✨
+
 This is Ever and Majo! 🖤
 
-###  Introduccion: 💖 
-Proyecto AhorrADAs propuesto por Ada.
+🐾 newHere
+🌊 wavesCounter
+🌙 MidnightLover
+🐱 crazyCatLady
 
-Creamos una aplicación que permite llevar un registro de los gastos realizados y de los ingresos obtenidos. Aplicamos lo aprendido para estructurar y almacenar la información compleja de la aplicación, y desarrollamos funcionalidades que posibilitan manipularla y realizar operaciones esenciales a la hora de trabajar con datos.
+## Introducción: 🐥
+Proyecto **AhorrADAs** propuesto por Ada.
 
-
-###  Criterios de aceptación👍 
-
-Los requisitos mínimos para que el proyecto sea considerado para la entrega son:
-
-    Debe respetar el diseño general dado. Pueden modificarse a gusto colores, fondo, fuentes e íconos
-    Debe respetar las interacciones y flujo de pantallas
-    Debe ser responsive
-    Debe cumplir con las funcionalidades principales listadas en la sección siguiente
-    Debe hacer hacer uso de un framework CSS (sólo deben agregarse estilos propios si no hay forma de lograrlo con el framework)
-    Debe estar deployado y ser accesible desde una dirección web
-    No se debe trabajar en la rama main. En main sólo van a mergearse las demás ramas, por lo que cada commit de main debería ser el merge de una branch de una funcionalidad terminada
-    Cada funcionalidad que se agregue debe hacerse mediante un PR (Pull Request)
-
-###  Funcionalidades principales🐇
-
-    Se debe poder agregar, editar y eliminar operaciones
-	
-    Se debe poder agregar, editar y eliminar categorías
-	
-    Cada operación debe contar con:
-	-         Descripción
-	-         Monto
-	-         Tipo de operación (gasto o ganancia)
-	-         Categoría a la que pertenece
-	-         Fecha de realización
-	
-    Cada categoría debe contar con un nombre
-	
-    Al eliminar una categoría, se deben eliminar todas las operaciones asociadas a ella
-	
-    Se debe poder filtrar las operaciones realizadas por:
-	-         Tipo de operación (gasto, ganancia o ambas)
-	-         Categoría a la que pertenece (una en específico o cualquiera)
-	-         Fecha de realización (a partir de la fecha seleccionada)
-		
-    Se debe poder ordernar las operaciones realizadas por:
-	-         Fecha de realización (más y menos reciente)
-	-         Monto (mayor y menor)
-	-         Descripción (en orden alfabético creciente y decreciente)
-		
-    Se debe poder obtener los siguientes reportes:
-      - Un resumen con:
-	-             Categoría con mayor ganancia
-	-             Categoría con mayor gasto
-	-             Categoría con mayor balance
-	-             Mes con mayor ganancia
-	-             Mes con mayor gasto
-	-             Totales (gastos, ganancias y balances) por categoría
-	-             Totales (gastos, ganancias y balances) por mes
-
-    Se deben guardar los datos en el almacenamiento local del navegador
+Creamos una aplicación web que permite llevar un registro detallado de gastos e ingresos. Aplicamos lo aprendido para estructurar y almacenar información compleja, desarrollando funcionalidades que posibilitan la manipulación de datos y operaciones matemáticas esenciales para las finanzas personales.
 
 
 
-### Recursos: 🐾
+## Funcionalidades principales: 🎛
 
-    Tailwind - Framework CSS
-    Font Awesome - Íconos
-    Undraw - Imágenes
+La aplicación cuenta con un sistema robusto de gestión de datos:
 
-### Enlace: AhorrADAS🤘
-Dale click al siguiente enlace para acceder [Aquí](https://immichi-dev.github.io/Ahorradas23/)
+#### 📝 Gestión de Operaciones
+- **CRUD Completo:** Agregar, editar y eliminar operaciones.
+- **Detalles:** Cada operación incluye descripción, monto, tipo (gasto/ganancia), categoría y fecha.
+- **Relación:** Las operaciones están vinculadas directamente a las categorías.
 
-Herramientas usadas: 🧰
+#### 🗂 Gestión de Categorías
+- **Administración:** Agregar, editar y eliminar categorías personalizadas.
+- **Eliminación en Cascada:** Al eliminar una categoría, se eliminan automáticamente todas las operaciones asociadas a ella para mantener la consistencia de los datos.
 
-![My Skills](https://skillicons.dev/icons?i=vscode,github,git,html,js,md,tailwind)
+#### 🔍 Filtros y Ordenamiento
+- **Filtros Avanzados:** Por tipo (gasto/ganancia), por categoría específica y por fecha (desde X día).
+- **Ordenamiento:**
+    - Fecha (más/menos reciente).
+    - Monto (mayor/menor).
+    - Descripción (A-Z / Z-A).
+
+#### 📊 Reportes y Resúmenes
+Se genera un balance automático que incluye:
+- Categoría con mayor ganancia, mayor gasto y mayor balance.
+- Mes con mayor ganancia y mayor gasto.
+- Totales desglosados por categoría y por mes.
+
+#### 💾 Persistencia
+- **LocalStorage:** Los datos se guardan en el almacenamiento local del navegador, permitiendo que la información persista aunque se cierre la pestaña.
+
+## Recursos: 💊
+- [Tailwind CSS](https://tailwindcss.com/ "Framework CSS")
+- [Font Awesome](https://fontawesome.com/ "Íconos")
+
+## Enlace: 🎿
+Dale click al siguiente enlace para acceder a la aplicación:
+[AhorrADAs - Ver Proyecto](https://immichi-dev.github.io/Ahorradas23/)
+
+## Herramientas usadas: 🔔
+
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Json](https://img.shields.io/badge/JSON-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
+![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![VisualStudioCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+![GIT](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+
+
